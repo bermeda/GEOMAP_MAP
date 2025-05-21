@@ -1,6 +1,100 @@
-<select id="typeFilter">
-  <option value="all">All</option>
-  <option value="restaurant">Restaurants</option>
-  <option value="river">Rivers</option>
-  <option value="school">Schools</option>
-</select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GIS Web Application</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .legend {
+      position: absolute;
+      bottom: 30px;
+      left: 10px;
+      padding: 10px;
+      background: white;
+      border: 1px solid #ccc;
+      z-index: 1000;
+      max-width: 250px;
+      font-size: 14px;
+    }
+    #sidebar {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 300px;
+      height: 100%;
+      background: #fff;
+      overflow: auto;
+      padding: 10px;
+      z-index: 1001;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+    }
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+    body {
+      margin: 0;
+      padding: 0 10px 10px 10px;
+      font-family: Arial, sans-serif;
+    }
+    .controls {
+      margin-bottom: 10px;
+    }
+    .controls button,
+    .controls select {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>GIS Web Application</h1>
+
+  <!-- Controls for filtering, spatial queries, and drawing -->
+  <div class="controls">
+    <!-- Filter Controls -->
+    <select id="featureFilter" aria-label="Filter features by type">
+      <option value="all">Show All</option>
+      <option value="restaurant">Restaurants</option>
+      <option value="river">Rivers</option>
+      <option value="school">Schools</option>
+    </select>
+
+    <!-- Spatial Query Buttons -->
+    <button id="btn-points-within">Show Points Within Polygon</button>
+    <button id="btn-intersect">Show Intersecting Features</button>
+    <button id="btn-nearest">Find Nearest Restaurants</button>
+
+    <!-- Drawing Tools Trigger -->
+    <button id="draw-point">Draw Point</button>
+    <button id="draw-line">Draw Line</button>
+    <button id="draw-polygon">Draw Polygon</button>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend" id="legend"></div>
+
+  <!-- Map container -->
+  <div id="map"></div>
+
+  <!-- Sidebar for feature info -->
+  <div id="sidebar" aria-live="polite" role="region" aria-label="Feature Information">
+    <h3>Feature Info</h3>
+    <button id="close-sidebar">Close</button>
+    <div id="feature-info-content"></div>
+  </div>
+
+  <!-- Leaflet and Scripts -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+  <script src="map.js"></script>
+</body>
+</html>

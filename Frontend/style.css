@@ -1,0 +1,351 @@
+/* ==========================
+   Base Layout
+========================== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+#map {
+  height: 100vh;
+  width: 100%;
+  z-index: 0;
+}
+
+/* ==========================
+   Vector Feature Styles
+========================== */
+.point {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: blue;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.point:hover {
+  opacity: 0.8;
+  border: 2px solid #333;
+}
+
+.polygon-low-population {
+  background-color: rgba(255, 255, 0, 0.5);
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.polygon-low-population:hover {
+  opacity: 0.85;
+  border: 2px solid #999900;
+}
+
+.polygon-medium-population {
+  background-color: rgba(255, 165, 0, 0.5);
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.polygon-medium-population:hover {
+  opacity: 0.85;
+  border: 2px solid #cc8400;
+}
+
+.polygon-high-population {
+  background-color: rgba(255, 0, 0, 0.5);
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.polygon-high-population:hover {
+  opacity: 0.85;
+  border: 2px solid #990000;
+}
+
+/* Category-Based Styles */
+.restaurant {
+  background-color: rgba(255, 0, 0, 0.5);
+  border: 2px solid red;
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.restaurant:hover {
+  opacity: 0.8;
+}
+
+.river {
+  background-color: rgba(0, 0, 255, 0.5);
+  border: 2px solid blue;
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.river:hover {
+  opacity: 0.8;
+}
+
+.school {
+  background-color: rgba(0, 255, 0, 0.5);
+  border: 2px solid green;
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.school:hover {
+  opacity: 0.8;
+}
+
+/* ==========================
+   Editing States
+========================== */
+.point.editing {
+  background-color: red;
+  border: 2px solid yellow;
+}
+
+.line.editing {
+  stroke: #FFD700;
+  stroke-width: 4;
+}
+
+.polygon.editing {
+  stroke: #FF4500;
+  stroke-width: 3;
+}
+
+/* ==========================
+   Sidebar
+========================== */
+#sidebar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 250px;
+  max-height: 90vh;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  display: none;
+  z-index: 1000;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+/* Sidebar fixed header */
+#sidebar-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding-bottom: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  z-index: 10;
+}
+
+/* Sidebar toggle (for mobile) */
+#sidebar.show {
+  display: block;
+  transform: translateX(0);
+}
+
+#sidebar.hide {
+  transform: translateX(100%);
+}
+
+/* Close button */
+#close-sidebar {
+  display: block;
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#close-sidebar:hover {
+  background-color: #cc3b3b;
+}
+
+/* ==========================
+   Controls
+========================== */
+#featureFilter {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 6px 10px;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+/* Button container */
+.button-container {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1000;
+}
+
+.button-container button {
+  padding: 6px 10px;
+  font-size: 14px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.button-container button:hover {
+  background-color: #0056b3;
+}
+
+.button-container button:active,
+.button-container button:focus {
+  outline: none;
+  background-color: #003d80;
+  box-shadow: 0 0 5px #003d80;
+}
+
+/* Reset Map Button - distinct style */
+.button-container button.reset-map {
+  background-color: #6c757d;
+}
+
+.button-container button.reset-map:hover {
+  background-color: #5a6268;
+}
+
+/* ==========================
+   Legend
+========================== */
+.legend {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  z-index: 1000;
+  user-select: none;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.legend-item:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.legend-item.active {
+  background-color: rgba(0, 123, 255, 0.2);
+  font-weight: bold;
+}
+
+.legend-color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 1px solid #999;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  font-size: 14px;
+}
+
+/* ==========================
+   Loading Spinner
+========================== */
+#loading-spinner {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 1100;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+/* ==========================
+   Leaflet Draw Controls Styling
+========================== */
+.leaflet-draw-toolbar a {
+  background-color: #007bff !important;
+  color: white !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.leaflet-draw-toolbar a:hover {
+  background-color: #0056b3 !important;
+}
+
+/* ==========================
+   Tooltip Styles
+========================== */
+.leaflet-tooltip.my-tooltip {
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 13px;
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* ==========================
+   Responsive Design
+========================== */
+@media screen and (max-width: 600px) {
+  #sidebar {
+    width: 90%;
+    right: 5%;
+  }
+
+  .button-container {
+    left: 5px;
+  }
+
+  .button-container button {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  #featureFilter {
+    left: 5px;
+    font-size: 12px;
+  }
+}
